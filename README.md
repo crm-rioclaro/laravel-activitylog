@@ -1,4 +1,4 @@
-# Log activity inside your Laravel app
+# Activity log adapted for composite key models.
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/laravel-activitylog.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-activitylog)
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/spatie/laravel-activitylog/run-tests?label=tests)
@@ -10,6 +10,18 @@
 The `spatie/laravel-activitylog` package provides easy to use functions to log the activities of the users of your app. It can also automatically log model events. 
 The Package stores all activity in the `activity_log` table.
 
+This project was forked to make it possible to use models with a **composite key**.
+
+To allow the model to accept composite keys, import [this trait](https://gist.github.com/galloaleonardo/9cb6d34ae6195f3162244470c5052bf2) into your model.
+
+After adapting the model, add your composite keys.
+
+```php
+protected $primaryKey = ['key_1', 'key_2', 'key_3', 'key_4'];
+```
+
+
+You can now use the log.
 Here's a demo of how you can use it:
 
 ```php
