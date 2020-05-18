@@ -158,6 +158,10 @@ class ActivityLogger
             $activity
         );
 
+        if (is_array($activity->subject_id)) {
+            $activity->subject_id = $activity->subject_id[array_key_first($activity->subject_id)];
+        }
+
         $activity->save();
 
         $this->activity = null;
