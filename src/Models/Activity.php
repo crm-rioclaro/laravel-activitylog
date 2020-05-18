@@ -12,7 +12,6 @@ use Spatie\Activitylog\Contracts\Activity as ActivityContract;
 class Activity extends Model implements ActivityContract
 {
     public $guarded = [];
-    protected $connection = 'sqlsrv_log';
 
     protected $casts = [
         'properties' => 'collection',
