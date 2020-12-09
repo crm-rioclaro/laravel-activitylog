@@ -10,7 +10,7 @@
 The `spatie/laravel-activitylog` package provides easy to use functions to log the activities of the users of your app. It can also automatically log model events. 
 The Package stores all activity in the `activity_log` table.
 
-This project was forked to make it possible to use models with a **composite key**.
+This project was forked to make it possible to use models with a **composite key** and **string/int primary key**.
 
 To allow the model to accept composite keys, import [this trait](https://gist.github.com/galloaleonardo/9cb6d34ae6195f3162244470c5052bf2) into your model.
 
