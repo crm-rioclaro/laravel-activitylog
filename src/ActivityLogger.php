@@ -49,8 +49,27 @@ class ActivityLogger
     }
 
     public function performedOn(Model $model)
-    {
-        $this->getActivity()->subject()->associate($model);
+    {                     
+        $activity = $this->getActivity();
+        $foreignKey = '';
+                        
+        if ($model instanceof Model) {
+            $foreignKey = $model->getKeyName();
+        }
+
+        if (is_array($foreignKey)) {
+            $foreignKey = $foreignKey[array_key_first($foreignKey)];
+        }
+        
+        $activity->setAttribute(
+            'subject_id', $model instanceof Model ? $model->{$foreignKey} : null
+        );
+
+        $activity->setAttribute(
+            'subject_type', $model instanceof Model ? $model->getMorphClass() : null
+        );
+
+        $activity->setRelation('subject', $model);
 
         return $this;
     }
@@ -146,7 +165,7 @@ class ActivityLogger
     }
 
     public function log(string $description)
-    {
+    {                
         if ($this->logStatus->disabled()) {
             return;
         }
@@ -157,10 +176,10 @@ class ActivityLogger
             $activity->description ?? $description,
             $activity
         );
-
-        if (is_array($activity->subject_id)) {
+        
+        /*if (is_array($activity->subject_id)) {
             $activity->subject_id = $activity->subject_id[array_key_first($activity->subject_id)];
-        }
+        }*/
 
         $activity->save();
 
